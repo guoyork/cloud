@@ -2,21 +2,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 a = np.loadtxt("1.txt")
-b = np.loadtxt("2.txt")
-c = np.loadtxt("5.txt")
-d = np.loadtxt("6.txt")
 
-x = range(len(a))
+b = [abs(a[i+2]-a[0]) for i in range(len(a)-2)]
+x = np.asarray(range(len(b)))/10
 
 
-plt.xlabel('epoch')
-plt.ylabel('accuracy')
+plt.xlabel('epsilon')
+plt.ylabel('bias')
 
-plt.plot(x, a, label='total update')
-plt.plot(x, b, label='greedy update')
-#plt.plot(x, c, label='epsilon-greedy update')
-#plt.plot(x, d, label='UCB update')
-plt.legend(loc='lower right')
+plt.plot(x, b, marker='s', color='green', label='our algorithm')
+plt.axhline(y=abs(a[0]-a[1]), color='red', linestyle="--", label='A/B testing')
+plt.legend(loc='upper right')
 
-
+plt.grid()
 plt.show()
